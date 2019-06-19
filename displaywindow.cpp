@@ -9,16 +9,13 @@ DisplayWindow::DisplayWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-
-    QMediaPlayer* player = new QMediaPlayer;
-
-    QMediaPlaylist* playlist = new QMediaPlaylist(player);
-    playlist->addMedia(QUrl::fromLocalFile("C:/Users/huqin/Desktop/videoplayback (1).mp4"));
-    player->setVideoOutput(this->ui->videoWidget);
-    this->ui->videoWidget->show();
-    playlist->setCurrentIndex(0);
-    player->play();
-
+    QPixmap pix;
+   if(pix.load("C:/Users/huqin/Desktop/2019-06-19_22.11.04.png")){
+       /** scale pixmap to fit in label'size and keep ratio of pixmap */
+       pix = pix.scaled(this->ui->label->size(), Qt::KeepAspectRatio);
+       //this->ui->label->setPixmap(pix);
+       //->ui->label->setStyleSheet("background-image: url(C:/Users/huqin/Desktop/2019-06-19_22.11.04.png);");
+   }
 }
 
 DisplayWindow::~DisplayWindow()

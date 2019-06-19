@@ -51,6 +51,7 @@ void MainWindow::loadCaptions(QString location) {
 void MainWindow::load(QString config)
 {
     this->displayWindow.hide();
+    this->isDisplayingEnglish = false;
     if(config == nullptr) {
         QString fileName = QFileDialog::getOpenFileName(this,
             tr("Open Config"), QDir::currentPath(), tr("Config Files (*.ini *.conf)"));
@@ -61,7 +62,7 @@ void MainWindow::load(QString config)
     this->currentIndex = 0;
     this->logList = new StringList();
     this->ui->logListView->setModel(this->logList);
-    this->isDisplayingEnglish = false;
+
     this->startTime = 0;
     this->ui->nextButton->setDisabled(true);
     this->ui->previousButton->setDisabled(true);
@@ -81,6 +82,7 @@ void MainWindow::update(bool isForward = true) {
             this->ui->translationWidget->scrollToTop();
         else
             this->ui->translationWidget->scrollToItem(this->ui->translationWidget->item(this->currentIndex - 1, 0));
+    qDebug() << this->isDisplayingEnglish;
     if(this->startTime == 0) {
         this->ui->currentTextBrowser->setText(this->ui->chineseNameLabel->text() + "\n" + this->ui->englishNameLabel->text() + "\n" + this->ui->chineseClassLabel->text() + "\n" + this->ui->englishClassLabel->text());
     } else if(this->isDisplayingEnglish) {
@@ -142,7 +144,7 @@ void MainWindow::writeSampleConfigFile()
     config->setValue("EnglishName", "Leigh Smith");
     config->setValue("ChineseClass", "外方校长");
     config->setValue("EnglishClass", "Center Principal");
-    config->setValue("Display", "Chinese");
+    config->setValue("Display", "English");
     config->setValue("File", "D:/毕业典礼/trans/cz");
     config->sync();
 }
