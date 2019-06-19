@@ -23,14 +23,22 @@ private slots:
 
     void on_previousButton_clicked();
 
+    void on_loadButton_clicked();
+
+    void on_controlButton_clicked();
+
 private:
     Ui::MainWindow *ui;
+    qint64 startTime;
+    qint64 lastTime;
     QList<QString> readFile(QString filename);
     void loadCaptions(QString location);
     void update(bool isForward);
     void log(QString text);
     void readConfigFile(QString configFile);
     void writeSampleConfigFile();
+    void load(QString config = nullptr);
+    void timeSubtitle();
     int currentIndex;
     bool isDisplayingEnglish;
     StringList* logList;
@@ -39,6 +47,8 @@ private:
     QList<QString> chineseTexts;
     StringList* chineseTextList;
     DisplayWindow displayWindow;
+    void closeEvent(QCloseEvent *event) override;
+    void writeSubtitle();
 };
 
 #endif // MAINWINDOW_H

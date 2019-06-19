@@ -38,7 +38,7 @@
        <item>
         <widget class="QPushButton" name="loadButton">
          <property name="text">
-          <string>Load</string>
+          <string>Reload</string>
          </property>
         </widget>
        </item>
@@ -103,6 +103,9 @@
      <font>
       <pointsize>12</pointsize>
      </font>
+    </property>
+    <property name="autoScroll">
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="QGroupBox" name="groupBox_2">
