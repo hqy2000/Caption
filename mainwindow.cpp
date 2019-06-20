@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent, QString configFileUrl) :
     ui->setupUi(this);
     this->writeSampleConfigFile();
     this->load(configFileUrl);
-    this->setWindowFlags(this->windowFlags() | Qt::MSWindowsFixedSizeDialogHint);
+    this->setWindowFlags(this->windowFlags() | Qt::MSWindowsFixedSizeDialogHint | Qt::WindowStaysOnTopHint);
 }
 
 MainWindow::~MainWindow()
@@ -61,6 +61,8 @@ void MainWindow::load(QString config)
 {
     this->displayWindow.hide();
     this->isDisplayingEnglish = false;
+    this->englishTexts.clear();
+    this->chineseTexts.clear();
     while(this->englishTexts.count() == 0 || this->chineseTexts.count() == 0) {
         if(config == nullptr) {
             QString fileName = QFileDialog::getOpenFileName(this,
@@ -79,6 +81,7 @@ void MainWindow::load(QString config)
     this->startTime = 0;
     this->ui->nextButton->setDisabled(true);
     this->ui->previousButton->setDisabled(true);
+    this->ui->controlButton->setText("Start");
     this->update(true);
     this->displayWindow.show();
     if (qApp->screens().count() > 1) {
