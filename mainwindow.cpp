@@ -12,6 +12,7 @@
 #include <QFileDialog>
 #include <QCloseEvent>
 #include <QWindow>
+#include<QTimer>
 
 
 MainWindow::MainWindow(QWidget *parent, QString configFileUrl) :
@@ -64,6 +65,10 @@ void MainWindow::load(QString config)
         if(config == nullptr) {
             QString fileName = QFileDialog::getOpenFileName(this,
                 tr("Open Config"), QDir::currentPath(), tr("Config Files (*.ini *.conf)"));
+            if (fileName == "") {
+                QTimer::singleShot(0, qApp, &QCoreApplication::quit);
+                break;
+            }
             this->readConfigFile(fileName);
         } else {
             this->readConfigFile(config);
@@ -102,7 +107,7 @@ void MainWindow::update(bool isForward = true) {
     } else {
         this->ui->currentTextBrowser->setText(this->chineseTexts[currentIndex]);
     }
-    this->displayWindow.changeText(this->ui->currentTextBrowser->toPlainText());
+
 
     this->ui->progressBar->setValue(this->currentIndex);
 }
@@ -240,4 +245,9 @@ void MainWindow::on_controlButton_clicked()
         this->ui->controlButton->setText("Start");
         this->update(true);
     }
+}
+
+void MainWindow::on_currentTextBrowser_textChanged()
+{
+    this->displayWindow.changeText(this->ui->currentTextBrowser->toPlainText());
 }

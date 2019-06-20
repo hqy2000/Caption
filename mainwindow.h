@@ -27,6 +27,8 @@ private slots:
 
     void on_controlButton_clicked();
 
+    void on_currentTextBrowser_textChanged();
+
 private:
     Ui::MainWindow *ui;
     qint64 startTime;

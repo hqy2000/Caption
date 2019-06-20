@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>782</width>
-    <height>500</height>
+    <height>506</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Control</string>
+   <string>Caption Display</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QGroupBox" name="groupBox">
@@ -169,9 +169,9 @@
     <property name="geometry">
      <rect>
       <x>320</x>
-      <y>30</y>
+      <y>20</y>
       <width>451</width>
-      <height>121</height>
+      <height>131</height>
      </rect>
     </property>
     <property name="font">
@@ -179,6 +179,9 @@
       <family>Microsoft YaHei UI</family>
       <pointsize>16</pointsize>
      </font>
+    </property>
+    <property name="readOnly">
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="QLabel" name="label">
