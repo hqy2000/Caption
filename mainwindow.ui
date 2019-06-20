@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1100</width>
-    <height>583</height>
+    <width>782</width>
+    <height>500</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -24,7 +24,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>430</y>
+      <y>10</y>
       <width>161</width>
       <height>141</height>
      </rect>
@@ -67,22 +67,12 @@
      </item>
     </layout>
    </widget>
-   <widget class="QListView" name="logListView">
-    <property name="geometry">
-     <rect>
-      <x>180</x>
-      <y>440</y>
-      <width>911</width>
-      <height>101</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QProgressBar" name="progressBar">
     <property name="geometry">
      <rect>
-      <x>180</x>
-      <y>550</y>
-      <width>911</width>
+      <x>10</x>
+      <y>450</y>
+      <width>761</width>
       <height>23</height>
      </rect>
     </property>
@@ -94,8 +84,8 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>140</y>
-      <width>1081</width>
+      <y>160</y>
+      <width>761</width>
       <height>281</height>
      </rect>
     </property>
@@ -111,10 +101,10 @@
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>180</x>
       <y>10</y>
-      <width>161</width>
-      <height>121</height>
+      <width>131</width>
+      <height>141</height>
      </rect>
     </property>
     <property name="title">
@@ -125,8 +115,8 @@
       <rect>
        <x>10</x>
        <y>30</y>
-       <width>141</width>
-       <height>80</height>
+       <width>111</width>
+       <height>101</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -158,37 +148,51 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QLabel" name="displayLanguageLabel">
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+          <underline>true</underline>
+         </font>
+        </property>
+        <property name="text">
+         <string>显示中文</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </widget>
-   <widget class="QGroupBox" name="groupBox_3">
+   <widget class="QTextBrowser" name="currentTextBrowser">
     <property name="geometry">
      <rect>
-      <x>180</x>
-      <y>10</y>
-      <width>911</width>
+      <x>320</x>
+      <y>30</y>
+      <width>451</width>
       <height>121</height>
      </rect>
     </property>
-    <property name="title">
-     <string>Current</string>
+    <property name="font">
+     <font>
+      <family>Microsoft YaHei UI</family>
+      <pointsize>16</pointsize>
+     </font>
     </property>
-    <widget class="QTextBrowser" name="currentTextBrowser">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>30</y>
-       <width>891</width>
-       <height>81</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Microsoft YaHei UI</family>
-       <pointsize>18</pointsize>
-      </font>
-     </property>
-    </widget>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>480</y>
+      <width>311</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Ver: 20190620 By: Qingyang Hu</string>
+    </property>
    </widget>
   </widget>
  </widget>

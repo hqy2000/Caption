@@ -8,14 +8,8 @@ DisplayWindow::DisplayWindow(QWidget *parent) :
     ui(new Ui::DisplayWindow)
 {
     ui->setupUi(this);
+    this->backgroundImageUrl = nullptr;
 
-    QPixmap pix;
-   if(pix.load("C:/Users/huqin/Desktop/2019-06-19_22.11.04.png")){
-       /** scale pixmap to fit in label'size and keep ratio of pixmap */
-       pix = pix.scaled(this->ui->label->size(), Qt::KeepAspectRatio);
-       //this->ui->label->setPixmap(pix);
-       //->ui->label->setStyleSheet("background-image: url(C:/Users/huqin/Desktop/2019-06-19_22.11.04.png);");
-   }
 }
 
 DisplayWindow::~DisplayWindow()
@@ -26,4 +20,36 @@ DisplayWindow::~DisplayWindow()
 void DisplayWindow::changeText(QString text)
 {
     this->ui->label->setText(text);
+}
+
+void DisplayWindow::resizeEvent(QResizeEvent* event)
+{
+    QMainWindow::resizeEvent(event);
+    if(this->backgroundImageUrl != nullptr) {
+        QPixmap bkgnd(this->backgroundImageUrl);
+        bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
+        QPalette palette;
+        palette.setBrush(QPalette::Background, bkgnd);
+        this->setPalette(palette);
+    }
+}
+
+void DisplayWindow::changeFontSize(int size)
+{
+    if (size > 0) {
+        auto font = this->ui->label->font();
+        font.setPointSize(size);
+        this->ui->label->setFont(font);
+    }
+}
+
+void DisplayWindow::changeBackgroundImage(QString backgroundImageUrl){
+    if (backgroundImageUrl != "") {
+        this->backgroundImageUrl = backgroundImageUrl;
+        QPixmap bkgnd(this->backgroundImageUrl);
+        bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
+        QPalette palette;
+        palette.setBrush(QPalette::Background, bkgnd);
+        this->setPalette(palette);
+    }
 }

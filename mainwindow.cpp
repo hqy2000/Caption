@@ -11,17 +11,17 @@
 #include <QDir>
 #include <QFileDialog>
 #include <QCloseEvent>
+#include <QWindow>
 
 
-MainWindow::MainWindow(QWidget *parent) :
+MainWindow::MainWindow(QWidget *parent, QString configFileUrl) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     this->writeSampleConfigFile();
-    this->load("config_sample.ini");
+    this->load(configFileUrl);
     this->setWindowFlags(this->windowFlags() | Qt::MSWindowsFixedSizeDialogHint);
-    //this->log("Test");
 }
 
 MainWindow::~MainWindow()
@@ -33,8 +33,16 @@ void MainWindow::loadCaptions(QString location) {
     this->englishTexts = this->readFile(location + ".en");
     this->chineseTexts = this->readFile(location + ".zh");
     this->ui->translationWidget->setColumnCount(2);
-    this->ui->translationWidget->setColumnWidth(0, this->ui->translationWidget->width() * 0.45);
-    this->ui->translationWidget->setColumnWidth(1, this->ui->translationWidget->width() * 0.45);
+    if(this->isDisplayingEnglish) {
+        this->ui->translationWidget->setHorizontalHeaderItem(0, new QTableWidgetItem("Display"));
+        this->ui->translationWidget->setHorizontalHeaderItem(1, new QTableWidgetItem("Reference"));
+    } else {
+        this->ui->translationWidget->setHorizontalHeaderItem(0, new QTableWidgetItem("Refrence"));
+        this->ui->translationWidget->setHorizontalHeaderItem(1, new QTableWidgetItem("Display"));
+    }
+
+    this->ui->translationWidget->setColumnWidth(0, this->ui->translationWidget->width() * 0.46);
+    this->ui->translationWidget->setColumnWidth(1, this->ui->translationWidget->width() * 0.46);
     this->ui->translationWidget->setWordWrap(true);
     if(this->englishTexts.count() == this->chineseTexts.count()) {
         for(int i=0;i<this->englishTexts.length();i++){
@@ -52,22 +60,27 @@ void MainWindow::load(QString config)
 {
     this->displayWindow.hide();
     this->isDisplayingEnglish = false;
-    if(config == nullptr) {
-        QString fileName = QFileDialog::getOpenFileName(this,
-            tr("Open Config"), QDir::currentPath(), tr("Config Files (*.ini *.conf)"));
-    } else {
-        this->readConfigFile(config);
+    while(this->englishTexts.count() == 0 || this->chineseTexts.count() == 0) {
+        if(config == nullptr) {
+            QString fileName = QFileDialog::getOpenFileName(this,
+                tr("Open Config"), QDir::currentPath(), tr("Config Files (*.ini *.conf)"));
+            this->readConfigFile(fileName);
+        } else {
+            this->readConfigFile(config);
+            config = nullptr;
+        }
     }
-
     this->currentIndex = 0;
-    this->logList = new StringList();
-    this->ui->logListView->setModel(this->logList);
-
     this->startTime = 0;
     this->ui->nextButton->setDisabled(true);
     this->ui->previousButton->setDisabled(true);
     this->update(true);
     this->displayWindow.show();
+    if (qApp->screens().count() > 1) {
+        this->displayWindow.windowHandle()->setScreen(qApp->screens()[1]);
+        this->displayWindow.showFullScreen();
+    }
+
 }
 
 void MainWindow::update(bool isForward = true) {
@@ -82,7 +95,6 @@ void MainWindow::update(bool isForward = true) {
             this->ui->translationWidget->scrollToTop();
         else
             this->ui->translationWidget->scrollToItem(this->ui->translationWidget->item(this->currentIndex - 1, 0));
-    qDebug() << this->isDisplayingEnglish;
     if(this->startTime == 0) {
         this->ui->currentTextBrowser->setText(this->ui->chineseNameLabel->text() + "\n" + this->ui->englishNameLabel->text() + "\n" + this->ui->chineseClassLabel->text() + "\n" + this->ui->englishClassLabel->text());
     } else if(this->isDisplayingEnglish) {
@@ -130,10 +142,15 @@ void MainWindow::readConfigFile(QString configFile)
     this->ui->englishClassLabel->setText(config->value("EnglishClass").toString());
     if(config->value("Display").toString() == "Chinese") {
         this->isDisplayingEnglish = false;
+        this->ui->displayLanguageLabel->setText("英文发言/中文字幕");
     } else {
         this->isDisplayingEnglish = true;
+        this->ui->displayLanguageLabel->setText("中文发言/英文字幕");
     }
+    this->displayWindow.changeFontSize(config->value("FontSize").toInt());
+    this->displayWindow.changeBackgroundImage(config->value("Background").toString());
     this->loadCaptions(config->value("File").toString());
+
 }
 
 void MainWindow::writeSampleConfigFile()
@@ -146,6 +163,8 @@ void MainWindow::writeSampleConfigFile()
     config->setValue("EnglishClass", "Center Principal");
     config->setValue("Display", "English");
     config->setValue("File", "D:/毕业典礼/trans/cz");
+    config->setValue("Background", "C:/Users/huqin/Documents/ShareX/Screenshots/2019-06/POWERPNT_y09dTL6vPW.jpg");
+    config->setValue("FontSize", 96);
     config->sync();
 }
 void MainWindow::on_nextButton_clicked()

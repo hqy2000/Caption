@@ -15,6 +15,18 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
+    <property name="leftMargin">
+     <number>50</number>
+    </property>
+    <property name="topMargin">
+     <number>50</number>
+    </property>
+    <property name="rightMargin">
+     <number>50</number>
+    </property>
+    <property name="bottomMargin">
+     <number>50</number>
+    </property>
     <item row="0" column="0">
      <widget class="QLabel" name="label">
       <property name="enabled">
@@ -29,7 +41,7 @@
       <property name="font">
        <font>
         <family>.黑体-日本语</family>
-        <pointsize>36</pointsize>
+        <pointsize>72</pointsize>
        </font>
       </property>
       <property name="text">
