@@ -180,7 +180,7 @@ void MainWindow::on_nextButton_clicked()
     this->writeSubtitle();
     this->currentIndex++;
     if(this->currentIndex >= this->englishTexts.count()) {
-        QMessageBox(QMessageBox::Warning, "Warning", "Already at last.", QMessageBox::Ok).exec();
+        //QMessageBox(QMessageBox::Warning, "Warning", "Already at last.", QMessageBox::Ok).exec();
         this->currentIndex = this->englishTexts.count() - 1;
     }
     this->update(true);
@@ -190,7 +190,7 @@ void MainWindow::on_previousButton_clicked()
 {
     this->currentIndex--;
     if(this->currentIndex < 0) {
-        QMessageBox(QMessageBox::Warning, "Warning", "Already at beginning.", QMessageBox::Ok).exec();
+        //QMessageBox(QMessageBox::Warning, "Warning", "Already at beginning.", QMessageBox::Ok).exec();
         this->currentIndex = 0;
     }
     this->update(false);
