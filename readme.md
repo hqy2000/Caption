@@ -13,7 +13,7 @@
 * 支持多平台。
 
 ## 安装
-本程序在 [Release](https://github.com/hqy2000/Caption/releases) 下载最新版本，解压运行 Caption.exe 即可。
+请在 [Releases](https://github.com/hqy2000/Caption/releases) 下载最新版本，解压运行 Caption.exe 即可。Linux、macOS版需自行编译。
 
 程序也支持命令行参数：Caption.exe [config path]，自动加载指定的配置文件。
 
@@ -23,3 +23,9 @@
 2. 双语字幕每一行互相对应。如 speech.en 的第一行内容对应 speech.zh 第一行内容，请确保双语文件行数一样。
 3. 运行 Caption.exe，会生成 config_sample.ini， 根据该样例自行编写您自己的配置文件。
 4. 使用命令行自动加载，或是手动通过对话框加载。
+
+--------------------------
+
+Qingyang Hu
+
+Licensed under LGPL
